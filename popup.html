@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- התאמת viewport למכשירים ניידים -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Downloader</title>
+    <!-- קישור לגופן Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- CSS מותאם אישית -->
+    <style>
+        /* עיצוב כללי */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+            margin: 0;
+            padding: 0;
+            width: 360px;
+        }
+
+        /* עיצוב הכותרת */
+        header {
+            display: flex;
+            align-items: center;
+            background-color: #1f2937;
+            color: #fff;
+            padding: 12px 20px;
+        }
+
+        h1 {
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        /* כפתור "Clear All" */
+        #clear-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        #clear-btn:hover {
+            color: #d1d5db;
+        }
+
+        /* עיצוב רשימת המדיה */
+        #media-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .media-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #e5e7eb;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+
+        .media-item:hover {
+            background-color: #f3f4f6;
+        }
+
+        .media-thumb {
+            width: 75%;
+            height: 75%;
+            /*background-color: #e5e7eb;*/
+            border-radius: 4px;
+            margin-right: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .media-thumb img {
+            max-width: 24px;
+            max-height: 24px;
+        }
+
+        .media-details {
+            flex-grow: 1;
+        }
+
+        .media-name {
+            font-size: 1rem;
+            font-weight: 500;
+            margin: 0;
+            color: #111827;
+        }
+
+        /* עיצוב Toast Notifications */
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #323232;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 12px;
+            position: fixed;
+            z-index: 1;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* הודעה כאשר אין פריטי מדיה */
+        .no-media {
+            text-align: center;
+            color: #6b7280;
+            padding: 40px 20px;
+            font-size: 1rem;
+        }
+
+        .media-item {
+            cursor: pointer; /* Entire row is clickable */
+            transition: background-color 0.3s ease;
+        }
+
+        .media-item:hover {
+            background-color: #f0f0f0; /* Light gray on hover */
+            /* Add a subtle shadow on hover */
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Delete icon specific hover effect */
+        .delete-icon img {
+            cursor: pointer; /* Make the icon look clickable */
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0.8; /* Slightly faded by default */
+        }
+
+        .delete-icon img:hover {
+            transform: scale(1.3); /* Slightly larger on hover */
+            opacity: 1; /* Fully visible on hover */
+        }
+
+
+    </style>
+</head>
+<body>
+<header>
+    <h1>
+        <!-- שימוש בתגית img כדי להציג את אייקון ההורדה מקובץ קיים -->
+        <img src="download.svg" alt="Download Icon" width="24" height="24">
+        Panopto Lecture Downloader
+    </h1>
+    <!-- כפתור "Clear All" -->
+    <button id="clear-btn" title="Clear All">
+        <img src="delete.svg" alt="Clear All Icon">
+    </button>
+</header>
+<ul id="media-list"></ul>
+<div id="toast"></div>
+<!-- קובץ ה-JS -->
+<script src="popup.js"></script>
+</body>
+</html>
